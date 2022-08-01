@@ -11,7 +11,7 @@
 
 
 ##  :clipboard: Descrição
-
+Aplicação para disponibilização de videos do you tube.
 
 
 ***
