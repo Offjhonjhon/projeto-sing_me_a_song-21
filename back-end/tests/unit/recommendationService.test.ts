@@ -4,7 +4,7 @@ import { jest } from "@jest/globals";
 
 jest.mock("../../src/repositories/recommendationRepository.js");
 
-describe("recommendation tests", () => {
+describe("insert", () => {
 
     it("should create a recommendation", async () => {
         const recommendationData = {
@@ -26,6 +26,7 @@ describe("recommendation tests", () => {
         expect(recommendationRepository.create).toHaveBeenCalledWith(recommendationData);
 
     });
+
 
     it("should not create a recommendation, because the name is already in use", async () => {
         const recommendationData = {
@@ -49,7 +50,9 @@ describe("recommendation tests", () => {
             expect(recommendationRepository.findByName).toHaveBeenCalledWith(recommendationData.name);
         }
     });
+});
 
+describe("upvote", () => {
     it("should upvote a recommendation", async () => {
         const recommendationData = {
             name: "Unit Test Recommendation",
@@ -79,6 +82,9 @@ describe("recommendation tests", () => {
         expect(recommendationRepository.find).toHaveBeenCalledWith(1);
         expect(recommendationRepository.updateScore).toHaveBeenCalledWith(1, "increment");
     })
+});
+
+describe("downvote", () => {
 
     it("should downvote a recommendation", async () => {
         const recommendationData = {
@@ -144,6 +150,9 @@ describe("recommendation tests", () => {
         expect(recommendationRepository.updateScore).toHaveBeenCalledWith(1, "decrement");
         expect(recommendationRepository.remove).toHaveBeenCalledWith(1);
     })
+});
+
+describe("getRandom", () => {
 
     it("should get a random recommendation, with Math.random < 0.7", async () => {
         const recommendationData = {
@@ -224,8 +233,10 @@ describe("recommendation tests", () => {
         catch {
             expect(recommendationService.getRandom).toBeDefined();
         }
-    })
+    });
+});
 
+describe("get", () => {
     it("should get all recommendations", async () => {
         const recommendationData = {
             name: "Unit Test Recommendation",
@@ -248,7 +259,9 @@ describe("recommendation tests", () => {
 
         expect(recommendationService.get).toBeDefined();
     })
+});
 
+describe("getByIdOrFail", () => {
     it("should get a recommendation by id", async () => {
         const recommendationData = {
             name: "Unit Test Recommendation",
@@ -270,6 +283,21 @@ describe("recommendation tests", () => {
         expect(recommendationService.getById).toBeDefined();
     })
 
+    it("should fail to get recommendation by id", async () => {
+        jest.spyOn(recommendationRepository, "find").mockImplementationOnce((): any => {
+            return null;
+        }
+        )
+        try {
+            await recommendationService.getById(1);
+        }
+        catch {
+            expect(recommendationService.getById).toBeDefined();
+        }
+    })
+});
+
+describe("getTop", () => {
     it("should get top recommendations", async () => {
         const recommendationData = {
             name: "Unit Test Recommendation",
@@ -290,7 +318,10 @@ describe("recommendation tests", () => {
         await recommendationService.getTop(1);
 
         expect(recommendationService.getTop).toBeDefined();
-    })
+    });
+});
+
+describe("deleteAll", () => {
 
     it("should delete all recommendations", async () => {
 
@@ -302,19 +333,8 @@ describe("recommendation tests", () => {
 
         expect(recommendationService.deleteAll).toBeDefined();
     })
-
-    it("should fail to get recommendation by id", async () => {
-        jest.spyOn(recommendationRepository, "find").mockImplementationOnce((): any => {
-            return null;
-        }
-        )
-        try {
-            await recommendationService.getById(1);
-        }
-        catch {
-            expect(recommendationService.getById).toBeDefined();
-        }
-    })
+});
 
 
-})
+
+
