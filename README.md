@@ -110,6 +110,10 @@ Para realizar os testes integrados rode o comando
 ```
 npm run test
 ```
+Para realizar os testes end-to-end rode o comando
+```
+npm run dev:test
+```
 
 ## 🏁 Rodando a aplicação do front-end
 
