@@ -5,7 +5,7 @@
 </p>
 
 <p align = "center">
-   <img src="https://img.shields.io/badge/author-SEU_NOME-4dae71?style=flat-square" />
+   <img src="https://img.shields.io/badge/author-João Araujp-4dae71?style=flat-square" />
    <img src="https://img.shields.io/github/languages/count/SEU_NOME/NOME_DO_PROJETO?color=4dae71&style=flat-square" />
 </p>
 
